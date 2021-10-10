@@ -1,0 +1,71 @@
+body {
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: cover;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  height: 100px;
+  color: rgb(8, 206, 241);
+}
+
+.tem {
+  font-size: 18px;
+  color: black;
+}
+
+.module1 {
+  margin-left: 50px;
+  font-size: 18px;
+  color: black;
+}
+
+.ledButtun {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+  border-radius: 90px;
+  border: none;
+  background-color: rgb(108, 217, 236);
+  font-size: 20px;
+  color: whitesmoke;
+}
+
+form {
+  margin-left: 80px;
+  margin-top: 30px;
+}
+
+.clientState {
+  margin-left: 0px;
+  color: rgb(112, 114, 114);
+}
+
+.main {
+  margin-top: 40px;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.ledState {
+  color: lawngreen;
+  font-size: 25px;
+}
+
+.switch {
+  width: 50%;
+  height: 50%;
+}
+
+.ling {
+  width: 50%;
+  position: absolute;
+  opacity: 0.8;
+  bottom: 0px;
+  right: 10px;
+  z-index: -1;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LED控制页面</title>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script src="./socket.io.js"></script>
+    <script src="./jquery-3.5.1.min.js"></script>
+    <style>
+      body {
+        background-color: white;
+        background-repeat: no-repeat;
+        background-position: 0% 0%;
+        background-size: cover;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        height: 100px;
+        color: rgb(8, 206, 241);
+      }
+
+      .tem {
+        font-size: 18px;
+        color: black;
+      }
+
+      .module1 {
+        margin-left: 50px;
+        font-size: 18px;
+        color: black;
+      }
+
+      .ledButtun {
+        width: 200px;
+        height: 200px;
+        margin-top: 20px;
+        border-radius: 100px;
+        border: none;
+        border-style: none;
+        background-color: rgb(108, 217, 236);
+        font-size: 20px;
+        color: whitesmoke;
+      }
+
+      form {
+        margin-left: 80px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>LED灯控制台</h1>
+    <p class="module1">
+      客户端：<span id="module1" style="margin-left: 0px;color:rgb(112, 114, 114)">离线</span>
+    </p>
+    <div style="margin-top: 40px; margin: auto; width: 50%;text-align: center">
+      <span class="tem"
+        >灯状态：<span id="state" style="color: lawngreen; font-size: 25px"
+          >**</span
+        > </span
+      ><br />
+
+      <button id="ledButtun" class="ledButtun"><img src="./switchon.png" id="switch" style="width:50%;height:50%"></button>
+    </div>
+    <img
+      src="./4.jpg"
+      style="width: 20%; position: absolute; bottom: 0px; right: 30px;z-index: -1;"
+    />
+
+    <script>
+      $(function () {
+        var socket = io.connect('http://localhost:3000/')
+        const $messageForm = $('#messageForm')
+        const $message = $('#message')
+
+        $(".ledButtun").click(function () {
+          var ledState = document.getElementById('state').innerText
+          if (ledState == "LED OFF"){
+            socket.emit('ledCMD', "0")
+            
+          }else if (ledState == "LED ON"){
+            socket.emit('ledCMD', "1")
+            
+          }
+          
+        })
+
+        //提交RGB灯控制指令
+        // $messageForm.submit(function (e) {
+        //   e.preventDefault();
+        //   socket.emit('rgb', $message.val());
+        //   $message.val('');
+        // })
+
+        //获取LED灯状态
+        socket.on('LED', function (data) {
+          if (data.msg == 'LED ON') {
+            $('#state').html("LED OFF")
+            document.getElementById("ledButtun").style.backgroundColor = 'rgb(112, 114, 114)'
+            document.getElementById("ledButtun").style.color = 'white'
+            document.getElementById("switch").src = "./switchoff.png"
+          } else if (data.msg == 'LED OFF') {
+            $('#state').html("LED ON")
+            document.getElementById("ledButtun").style.backgroundColor = 'rgb(108, 217, 236)'
+            document.getElementById("ledButtun").style.color = 'black'
+            document.getElementById("switch").src = "./switchon.png"
+          }
+        })
+
+        //获取2号节点板状态
+        socket.on('module2', function (data) {
+          var str = data.msg
+          if (str == 'CLIENT-ONLINE') {
+            str = '在线'
+            $('#module1').html(str)
+            document.getElementById('module1').style.color = 'lawngreen'
+          } else {
+            str = '离线'
+            $('#module1').html(str)
+            $('#RGB').html('***')
+            document.getElementById('module1').style.color = 'rgb(112, 114, 114)'
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
