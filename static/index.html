@@ -21,7 +21,7 @@
   <style>
     body {
       background-color: black;
-      background-image: url('./2.png');
+      background-image: url('./img/2.png');
       background-repeat: no-repeat;
       background-position: 0% 0%;
       background-size: cover;
@@ -118,26 +118,12 @@
 
       socket.emit('getMessage',"")
 
-      //提交RGB灯控制指令
-      // $messageForm.submit(function (e) {
-      //   e.preventDefault();
-      //   socket.emit('rgb', $message.val());
-      //   $message.val('');
-      // })
-
       //获取光照强度
       socket.on('light', function (data) {
         $("#light").html(data.msg);
       });
 
-      
-
-      //获取RGB灯状态
-      socket.on('RGB', function (data) {
-        $("#RGB").html(data.msg);
-      });
-
-      //获取RGB灯状态
+      //初始加载温湿度监测图表
       socket.on("mychart", function (data) {
         var data = data.msg;
         var rdata = data.split(',');

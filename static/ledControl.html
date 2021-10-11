@@ -32,10 +32,10 @@
       ><br />
 
       <button id="ledButtun" class="ledButtun">
-        <img src="./switchon.png" id="switch" class="switch" />
+        <img src="./img/switchon.png" id="switch" class="switch" />
       </button>
     </div>
-    <img src="./4.jpg" id="ling" class="ling" />
+    <img src="./img/4.jpg" id="ling" class="ling" />
 
     <script>
       var ledButtun = document.getElementById('ledButtun')
@@ -70,13 +70,13 @@
             document.getElementById('ledButtun').style.backgroundColor =
               'rgb(112, 114, 114)'
             document.getElementById('ledButtun').style.color = 'white'
-            document.getElementById('switch').src = './switchoff.png'
+            document.getElementById('switch').src = './img/switchoff.png'
           } else if (data.msg == 'LED ON') {
             $('#state').html('LED ON')
             document.getElementById('ledButtun').style.backgroundColor =
               'rgb(108, 217, 236)'
             document.getElementById('ledButtun').style.color = 'black'
-            document.getElementById('switch').src = './switchon.png'
+            document.getElementById('switch').src = './img/switchon.png'
           }
         })
 
