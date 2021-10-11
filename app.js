@@ -1,21 +1,21 @@
 var mqtt = require('mqtt')
 var mysql = require('mysql')
 var connection = mysql.createConnection({
-  host: '47.97.245.136',
-  user: 'root',
-  password: 'root',
-  port: '3306',
-  database: 'iot',
+  host: '服务器IP',
+  user: 'MySQL用户名',
+  password: 'MySQL密码',
+  port: 'MySQL端口，默认是3306',
+  database: '数据库名称',
 })
 connection.connect()
 
 const routes = require('./module/routes')
 
-var mqttUrl = 'mqtt://47.97.245.136:61613'
+var mqttUrl = 'mqtt://服务器IP:61613'
 var option = {
-  username: 'admin',
-  password: 'password',
-  clientId: 'localNodeClient',
+  username: 'mqtt服务端用户名',
+  password: 'mqtt服务端密码',
+  clientId: '客户端id',
 }
 
 var app = require('http').createServer(handler),
