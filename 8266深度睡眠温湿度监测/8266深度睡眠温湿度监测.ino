@@ -71,7 +71,7 @@ void loop() {
 void connectMQTTServer()
 {
   //根据ESP8266的MAC地址生成客户端ID（避免与其他设备产生冲突）
-  String clientId = "esp8266-dht11";
+  String clientId = "你的设备clientId";
 
   // 建立遗嘱主题。
   String willString = "Mymqtt/module1/willMessage";
